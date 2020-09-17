@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".home.view.activity.MainActivity">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.cassiano.myapplication.home.view.viewmodel.RecipeDetailViewModel" />
+
+        <variable
+            name="imageURL"
+            type="String" />
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="headline"
+            type="String" />
+
+        <variable
+            name="description"
+            type="String" />
+
+        <variable
+            name="favIcon"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="onFavCLick"
+            type="android.view.View.OnClickListener" />
+
+    </data>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="300dp"
+                android:minHeight="300dp"
+                app:imageUrl="@{imageURL}"
+                app:isPicture="@{true}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/recipe"/>
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:maxWidth="300dp"
+                android:layout_height="wrap_content"
+                android:text="@{name}"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto_bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/favIcon"
+                app:layout_constraintTop_toBottomOf="@id/imageView"
+                tools:text="Genki Yakitoti With Crispty Red Onions"/>
+
+            <ImageView
+                android:id="@+id/favIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="4dp"
+                android:onClick="@{onFavCLick}"
+                android:src="@{viewModel.favIcon}"
+                app:layout_constraintStart_toEndOf="@+id/nameTextView"
+                app:layout_constraintTop_toBottomOf="@id/imageView"
+                tools:src="@drawable/ic_unfav" />
+
+            <TextView
+                android:id="@+id/headlineTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{headline}"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+                tools:text="Headline"/>
+
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{description}"
+                android:layout_marginTop="20dp"
+                android:textSize="14sp"
+                android:fontFamily="@font/roboto_light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/headlineTextView"
+                tools:text="Headline"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

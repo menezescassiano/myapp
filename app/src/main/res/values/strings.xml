@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="recipe_favored_alert">Recipe has been favorited</string>
+    <string name="recipe_unfavored_alert">Recipe has been unfavorited</string>
+    <string name="recipe_shared_preferences">MyPrefs</string>
+    <string name="try_again">Something went wrong. Click to try again.</string>
+    <string name="internet_connection_warning">Please check your internet connection.</string>
+
+</resources>

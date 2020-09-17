@@ -1,0 +1,111 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        applicationId "com.cassiano.myapplication"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+            buildConfigField "String", "SERVER_URL", '"https://hf-android-app.s3-eu-west-1.amazonaws.com/android-test/"'
+        }
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    configurations {
+        ktlint
+    }
+
+    task ktlint(type: JavaExec, group: "verification") {
+        description = "Check Kotlin code style."
+        main = "com.pinterest.ktlint.Main"
+        classpath = configurations.ktlint
+        args "src/**/*.kt"
+        args "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
+    }
+
+    check.dependsOn ktlint
+
+    task ktlintFormat(type: JavaExec, group: "formatting") {
+        description = "Fix Kotlin code style deviations."
+        main = "com.pinterest.ktlint.Main"
+        classpath = configurations.ktlint
+        args "-F", "src/**/*.kt"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
+    implementation "androidx.core:core-ktx:$versions.androidXTestCore"
+    implementation "androidx.appcompat:appcompat:$versions.appCompat"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint"
+    testImplementation "junit:junit:$versions.junit"
+    androidTestImplementation "androidx.test.ext:junit:$versions.testExt"
+
+    implementation "com.github.bumptech.glide:glide:$versions.glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$versions.glide"
+
+    implementation "androidx.appcompat:appcompat:$versions.appCompat"
+    implementation "androidx.core:core-ktx:$versions.androidXTestCore"
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint"
+
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+    implementation "androidx.recyclerview:recyclerview:$versions.recyclerview"
+    implementation "com.google.android.gms:play-services-maps:$versions.gms"
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.liveData"
+
+    //dependency injection
+    implementation "org.koin:koin-androidx-scope:$versions.scope"
+    implementation "org.koin:koin-androidx-viewmodel:$versions.scope"
+    implementation "org.koin:koin-androidx-ext:$versions.koin"
+
+
+    // unit testing
+    testImplementation "androidx.arch.core:core-testing:$versions.coreTesting"
+    testImplementation "androidx.test:core:$versions.testCode"
+    testImplementation "io.mockk:mockk:$versions.mockk"
+    testImplementation "org.robolectric:robolectric:$versions.robolectric"
+    testImplementation "org.robolectric:shadows-multidex:$versions.robolectric"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.liveData"
+
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$versions.courotinesAdapter"
+
+    //lint
+    ktlint "com.pinterest:ktlint:$versions.ktlint"
+}
