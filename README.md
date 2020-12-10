@@ -6,7 +6,7 @@
 
 ## Lint
 
-Ktlint
+* Ktlint
 
 ## Dependency Injection
 
