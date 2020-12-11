@@ -1,4 +1,4 @@
-package com.cassianomenezes.gifapp.internal
+package com.cassiano.myapplication.internal
 
 enum class RequestStatus {
     LOADING,

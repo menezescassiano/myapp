@@ -1,7 +1,7 @@
 package com.cassiano.myapplication.repository
 
 import com.cassiano.myapplication.home.model.DataResult
-import com.cassianomenezes.gifapp.internal.RequestStatus
+import com.cassiano.myapplication.internal.RequestStatus
 import retrofit2.Response
 
 abstract class RequestHelper {

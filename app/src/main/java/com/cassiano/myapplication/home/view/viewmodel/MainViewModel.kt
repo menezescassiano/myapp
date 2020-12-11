@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cassiano.myapplication.home.model.Recipe
 import com.cassiano.myapplication.repository.DataRepository
-import com.cassianomenezes.gifapp.internal.RequestStatus
+import com.cassiano.myapplication.internal.RequestStatus
 import kotlinx.coroutines.launch
 
 class MainViewModel(val repository: DataRepository) : ViewModel() {
