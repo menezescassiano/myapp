@@ -1,9 +1,9 @@
 package com.cassiano.myapplication.repository
 
+import com.cassiano.myapplication.home.model.DataResult
 import com.cassiano.myapplication.home.model.Recipe
-import retrofit2.Response
 
-class DataRepository(private val service: ServiceAPI) : ServiceAPI {
+class DataRepository(private val service: ServiceAPI) : RequestHelper(), DataContract {
 
-    override suspend fun getRecipes(): Response<List<Recipe>> = service.getRecipes()
+    override suspend fun getRecipes(): DataResult<List<Recipe>> = apiRequest { service.getRecipes() }
 }

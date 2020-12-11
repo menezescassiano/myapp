@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cassiano.myapplication.home.model.Recipe
 import com.cassiano.myapplication.repository.DataRepository
+import com.cassianomenezes.gifapp.internal.RequestStatus
 import kotlinx.coroutines.launch
 
 class MainViewModel(val repository: DataRepository) : ViewModel() {
@@ -19,17 +20,19 @@ class MainViewModel(val repository: DataRepository) : ViewModel() {
         running.set(true)
         showTryAgain.set(false)
         viewModelScope.launch {
-            try {
-                repository.getRecipes().run {
-                    running.set(false)
-                    takeIf { this.isSuccessful }?.run {
-                        responseData.postValue(true)
-                        list = this.body() as ArrayList<Recipe>
-                    } ?: showTryAgain.set(true)
-                }
-            } catch (e: Exception) {
-                showTryAgain.set(true)
+            repository.getRecipes().run {
+                running.set(false)
+                responseData.postValue(true)
+                list = this.data as ArrayList<Recipe>
+                changeState(this.status)
             }
+        }
+    }
+
+    private fun changeState(state: RequestStatus) {
+        when (state) {
+            RequestStatus.ERROR -> showTryAgain.set(true)
+            else -> showTryAgain.set(false)
         }
     }
 }
